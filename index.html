@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="calculator">
+        <h2>Calculator</h2>
+        <form method="POST">
+            <input type="text" name="expression" id="expression" value="{{ expression }}" readonly>
+            <div class="buttons">
+                <button type="button" onclick="appendValue('7')">7</button>
+                <button type="button" onclick="appendValue('8')">8</button>
+                <button type="button" onclick="appendValue('9')">9</button>
+                
+                <button type="button" onclick="appendValue('/')">÷</button>
+
+                <button type="button" onclick="appendValue('4')">4</button>
+                <button type="button" onclick="appendValue('5')">5</button>
+                <button type="button" onclick="appendValue('6')">6</button>
+                <button type="button" onclick="appendValue('*')">×</button>
+
+                <button type="button" onclick="appendValue('1')">1</button>
+                <button type="button" onclick="appendValue('2')">2</button>
+                <button type="button" onclick="appendValue('3')">3</button>
+                <button type="button" onclick="appendValue('-')">−</button>
+
+                <button type="button" onclick="appendValue('0')">0</button>
+                <button type="button" onclick="appendValue('.')">.</button>
+                <button type="submit">=</button>
+                <button type="button" onclick="appendValue('+')">+</button>
+
+                <!-- Backspace (cancel one character) -->
+                <button type="button" onclick="backspace()" class="back">⌫</button>
+                
+                <!-- Clear All -->
+                <button type="button" onclick="clearField()" class="clear">C</button>
+            </div>
+        </form>
+        <h3>RESULT: {{ result }}</h3>
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById("expression").value += value;
+        }
+        function clearField() {
+            document.getElementById("expression").value = "";
+        }
+        function backspace() {
+            let exp = document.getElementById("expression").value;
+            document.getElementById("expression").value = exp.slice(0, -1);
+        }
+    </script>
+</body>
+</html>
