@@ -1,77 +1,64 @@
-**Idea / Approach
+def add(numbers):
+    return sum(numbers)
 
-I wanted to create a simple command-line calculator in Python that can:
+def subtract(numbers):
+    result = numbers[0]
+    for num in numbers[1:]:
+        result -= num
+    return result
 
-Perform the four basic operations (addition, subtraction, multiplication, division) on multiple numbers.
+def multiply(numbers):
+    result = 1
+    for num in numbers:
+        result *= num
+    return result
 
-Run in a loop, so the user can perform many calculations until they choose to exit.
+def divide(numbers):
+    result = numbers[0]
+    for num in numbers[1:]:
+        if num == 0:
+            return "Error: Cannot divide by zero."
+        result /= num
+    return result
 
-Handle errors safely (like invalid input or division by zero).
+def calculator():
+    while True:
+        print("\n--- Command-Line Calculator ---")
+        print("Select an operation:")
+        print("1. Add (+)")
+        print("2. Subtract (-)")
+        print("3. Multiply (*)")
+        print("4. Divide (/)")
+        print("5. Exit")
 
-** Code Structure
+        user_choice = input("Enter your choice (1-5): ")
 
-I divided the program into two main parts:
+        if user_choice == '5':
+            print("Exiting calculator. Goodbye!")
+            break
 
-Functions for operations (add, subtract, multiply, divide).
+        if user_choice in ('1', '2', '3', '4'):
+            try:
+                nums_input = input("Enter numbers separated by space: ")
+                numbers = [float(num) for num in nums_input.split()]
+                if len(numbers) < 2:
+                    print("Please enter at least two numbers.")
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter valid numbers.")
+                continue
 
-Each function takes a list of numbers and performs the calculation.
-
-Main calculator function (calculator()).
-
-Shows a menu, asks the user to choose an operation, takes input numbers, and calls the correct function.
-
-** Functions I Wrote
-
-Addition (add): Uses Python’s sum() to add all numbers.
-
-Subtraction (subtract): Starts from the first number, subtracts all the remaining numbers in order.
-
-Multiplication (multiply): Starts with 1 and multiplies every number in the list.
-
-Division (divide): Starts with the first number, divides it by each next number in order, and checks for divide-by-zero.
-
-** Menu & Loop
-
-I used a while True loop so the program keeps running until the user selects "Exit".
-
-A menu with options 1–5 is displayed.
-
-If the user enters 5, the program prints "Goodbye" and stops.
-
-** User Input Handling
-
-The user enters numbers separated by spaces (e.g., 10 5 2).
-
-I used .split() to break the string and converted each value into a float.
-
-If the user enters less than 2 numbers, or something invalid (like letters), an error message is shown instead of crashing.
-
-*8 Displaying Results
-
-I used f-strings to show both the calculation and the answer.
-
-Example:
-
-Result: 10.0 / 5.0 / 2.0 = 1.0
-
-** Program Entry
-
-At the end, I wrote:
+            if user_choice == '1':
+                print(f"Result: {' + '.join(map(str, numbers))} = {add(numbers)}")
+            elif user_choice == '2':
+                print(f"Result: {' - '.join(map(str, numbers))} = {subtract(numbers)}")
+            elif user_choice == '3':
+                print(f"Result: {' * '.join(map(str, numbers))} = {multiply(numbers)}")
+            elif user_choice == '4':
+                result = divide(numbers)
+                print(f"Result: {' / '.join(map(str, numbers))} = {result}")
+        else:
+            print("Invalid choice. Please select an option from 1 to 5.")
 
 if __name__ == "__main__":
     calculator()
-
-
-This ensures the program only runs when executed directly, not when imported in another Python file.
-
-Final Summary
-
-I wrote separate functions for each operation.
-
-Used a menu-driven approach inside a loop.
-
-Handled invalid inputs and division by zero properly.
-
-Made the program user-friendly by showing full expressions with results.
-
-This way, I built a modular, safe, and reusable Python calculator. 
